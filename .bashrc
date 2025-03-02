@@ -9,8 +9,6 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 export EDITOR=nvim
-
-#yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -23,6 +21,9 @@ function y() {
 #starship
 eval "$(starship init bash)"
 
-#java
-export PATH=$PATH:/usr/lib/jvm/java-23-openjdk/bin
+#fortune | cowsay
+if [ -x /usr/share/cowsay -a -x /usr/share/fortune ]; then
+    fortune | cowsay
+fi
 
+alias musicdl="yt-dlp -x -f bestaudio[ext=m4a] --add-metadata --embed-thumbnail"
