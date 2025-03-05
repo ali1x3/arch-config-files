@@ -1,14 +1,5 @@
 return {
     {
-        'williamboman/mason.nvim',
-        lazy = false,
-        opts = {},
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-    },
-    -- LSP
-    {
         'neovim/nvim-lspconfig',
         cmd = {'LspInfo', 'LspInstall', 'LspStart'},
         event = {'BufReadPre', 'BufNewFile'},
@@ -54,7 +45,7 @@ return {
             })
 
             require('mason-lspconfig').setup({
-                ensure_installed = {},
+                ensure_installed = {'jdtls', 'sqlls', 'elixirls'},
                 handlers = {
                     function(server_name)
                         require('lspconfig')[server_name].setup({})

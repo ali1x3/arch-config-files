@@ -10,5 +10,4 @@ vim.cmd("source ~/.vimrc")
 local opt = vim.opt
 opt.relativenumber = true
 opt.number = true
-opt.hlsearch = false
-opt.incsearch = true
+
