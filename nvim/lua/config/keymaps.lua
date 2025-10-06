@@ -12,6 +12,7 @@ vim.keymap.set('n', '<C-l>', '<C-w>l')
 
 
 vim.keymap.set("x", "<leader>p", "\"_dP")
+vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
 
 -- allows me to copy things to my clipboard
 vim.keymap.set("v", "<leader>y", "\"+y")
