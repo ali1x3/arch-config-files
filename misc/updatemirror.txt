@@ -1,0 +1,1 @@
+ sudo reflector --save /etc/pacman.d/mirrorlist --protocol https --country HK,CN,IN,KR,TW,JP --n 10 --sort age --fastest 10 --verbose
