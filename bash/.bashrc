@@ -33,6 +33,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 #aliases
 alias musicdl='yt-dlp -x -f bestaudio[ext=m4a] --add-metadata --embed-thumbnail'
 alias connectdb='java -classpath /usr/share/java/mariadb-jdbc/mariadb-java-client.jar:.'
+alias vim='nvim'
 
 #for go path, and bootdev
 export PATH=$PATH:$HOME/go/bin
