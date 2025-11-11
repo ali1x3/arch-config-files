@@ -6,12 +6,14 @@
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     "margin": 4 ,
-    "font": "Caskaydia Cove Nerd Font 12",
+    "font-family": "Cascadia Code Nerd Font",
+    "font-size": 12,
     // Choose the order of the modules
     "modules-left": [
         //"custom/media",
         "tray",
-        "mpd"
+        "mpd",
+        "custom/toggle_kb"
     ],
     "modules-center": [
         "sway/window",
@@ -26,7 +28,7 @@
         "memory",
         "temperature",
         "battery",
-        "keyboard-state",
+        // "keyboard-state",
         "clock",
         "custom/power"
     ],
@@ -157,6 +159,11 @@
         },
         "on-click": "pavucontrol"
     },
+    "custom/toggle_kb": {
+        "format": "⌨️ ",
+        "format-alt": "🚫 ",
+        "on-click": "/home/niguel/arch-config-files/waybar_laptop/.config/waybar/toggle_laptop_keyboard.sh"
+    },
     "custom/media": {
         "format": "{icon} {text}",
         "return-type": "json",
@@ -189,7 +196,7 @@
         },
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% {icon} 󱐋",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
