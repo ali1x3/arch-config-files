@@ -231,3 +231,5 @@ fi
 #
 # eval "$(zoxide init bash)"
 
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1

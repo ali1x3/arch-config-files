@@ -14,8 +14,9 @@ if [ -n "$SELECTED_WALLPAPER" ]; then
 
    wal -i "$HOME/wallpapers/$SELECTED_WALLPAPER"
 
-   sed -i -e "s|preload = .*|preload = $HOME/wallpapers/$SELECTED_WALLPAPER|" \
-          -e "s|wallpaper = ,.*|wallpaper = ,$HOME/wallpapers/$SELECTED_WALLPAPER|" "$TARGET_FILE"
+   # sed -i -e "s|preload = .*|preload = $HOME/wallpapers/$SELECTED_WALLPAPER|" \
+   #       -e "s|wallpaper = ,.*|wallpaper = ,$HOME/wallpapers/$SELECTED_WALLPAPER|" "$TARGET_FILE"
+   sed -i -e "s|path = .*|path = $HOME/wallpapers/$SELECTED_WALLPAPER|" "$TARGET_FILE"
    sed -i -e "s|path = .*|path = $HOME/wallpapers/$SELECTED_WALLPAPER|" "$TARGET_FILE2"
 
     killall hyprpaper
