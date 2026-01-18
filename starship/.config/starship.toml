@@ -8,6 +8,7 @@ $username\
 [](bg:#d5b1b9 fg:#bc879a)\
 $directory\
 [](fg:#d5b1b9)\
+$nix_shell\
 $git_branch\
 $git_status\
 $c\
@@ -43,6 +44,13 @@ truncation_symbol = "…/"
 "Music" = "󰝚 "
 "Pictures" = " "
 "Developer" = "󰲋 "
+
+[nix_shell]
+style = "bg:teal"
+impure_msg = '[impure shell](bold red)'
+pure_msg = '[pure shell](bold green)'
+unknown_msg = '[unknown shell](bold yellow)'
+format = ' [$state( \($name\))](bold blue) '
 
 [git_branch]
 symbol = ""
