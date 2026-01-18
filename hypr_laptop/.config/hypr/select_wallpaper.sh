@@ -1,3 +1,4 @@
+
 WALLPAPER_DIR="$HOME/wallpapers"
 
 SELECTED_WALLPAPER=$(ls "$WALLPAPER_DIR" | wofi -dmenu "∂" )
@@ -18,9 +19,9 @@ if [ -n "$SELECTED_WALLPAPER" ]; then
           -e "s|wallpaper = ,.*|wallpaper = ,$HOME/wallpapers/$SELECTED_WALLPAPER|" "$TARGET_FILE"
    sed -i -e "s|path = .*|path = $HOME/wallpapers/$SELECTED_WALLPAPER|" "$TARGET_FILE2"
 
-    killall hyprpaper
+    pkill hyprpaper
     hyprpaper
 
-    killall waybar
+    pkill waybar
     waybar
 fi

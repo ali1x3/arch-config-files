@@ -11,7 +11,7 @@ vim.cmd("set linebreak")
 vim.cmd("set breakindent")
 vim.cmd("set conceallevel=0")
 vim.diagnostic.config({ virtual_text = true })
-vim.cmd("source ~/.vimrc")
+-- vim.cmd("source ~/.vimrc")
 vim.cmd("colorscheme catppuccin")
 
 

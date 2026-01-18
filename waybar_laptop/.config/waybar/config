@@ -13,7 +13,6 @@
         //"custom/media",
         "tray",
         "mpd",
-        "custom/toggle_kb"
     ],
     "modules-center": [
         "sway/window",

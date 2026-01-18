@@ -13,7 +13,7 @@
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 SOCKET_PATH=$(find "$XDG_RUNTIME_DIR/hypr" -type s -name "*.socket.sock" 2>/dev/null | head -n1)
 export HYPRLAND_INSTANCE_SIGNATURE=$(basename "$(dirname "$SOCKET_PATH")")
-CACHE_FILE="/home/niguel/.cache/laptop-keyboard-disabled"
+CACHE_FILE="/home/alex/.cache/laptop-keyboard-disabled"
 
 hyprctl -- keyword 'device[evremap-virtual-input-for-/dev/input/event3]:enabled' 0
 
