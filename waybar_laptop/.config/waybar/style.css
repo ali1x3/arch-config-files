@@ -118,6 +118,7 @@ button:hover {
 
 .modules-left, .modules-right, .modules-center{
     background-color: @background;
+    opacity: 0.93;
     border-radius: 10px;
     padding: 5px;
 }
