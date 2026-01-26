@@ -13,6 +13,7 @@ return {
             -- This will avoid an annoying layout shift in the screen
             vim.opt.signcolumn = 'yes'
         end,
+
         config = function()
             local lsp_defaults = require('lspconfig').util.default_config
 
@@ -70,6 +71,14 @@ return {
                         })
                     end,
                 },
+            })
+
+            require('lspconfig').tinymist.setup({
+                single_file_support = true,
+                root_dir = require('lspconfig').util.root_pattern("typst.toml", ".git"),
+                settings = {
+                    exportPdf = "onSave", -- Optional: Create PDF on save
+                }
             })
         end
     }
