@@ -48,6 +48,8 @@ return {
                 capabilities = capabilities,
             })
 
+            require('lspconfig').nixd.setup({ capabilities = capabilities})
+
        --     local lspconfig = require('lspconfig')
 
        --     lspconfig['lua_ls'].setup({ capabilities = capabilities })
