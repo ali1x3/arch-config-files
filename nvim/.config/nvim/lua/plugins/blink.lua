@@ -25,7 +25,26 @@ return {
     -- See the full "keymap" documentation for information on defining your own keymap.
     keymap = {
         preset = 'default',
-        ['<CR>'] = {'select_and_accept'}
+        ['<CR>'] = { 'select_and_accept', 'fallback' },
+    },
+
+    completion = {
+        ghost_text = {
+            enabled = true,
+            -- Optional settings:
+            -- show_with_selection = true, 
+            -- show_without_selection = false,
+        },
+
+        trigger = {
+            show_on_insert_on_trigger_character = true,
+        },
+
+        documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 200, -- Optional: controls how quickly the window appears
+        },
+        -- ... other completion settings (menu, list, etc.)
     },
 
     appearance = {
