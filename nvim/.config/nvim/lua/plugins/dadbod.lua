@@ -2,9 +2,9 @@ return {
     {
         'tpope/vim-dadbod'
     },
-    {
-        'kristijanhusak/vim-dadbod-completion'
-    },
+    -- {
+    --     'kristijanhusak/vim-dadbod-completion'
+    -- },
     {
         {
             'kristijanhusak/vim-dadbod-ui',
@@ -21,23 +21,27 @@ return {
             init = function()
                 -- Your DBUI configuration
                 vim.g.db_ui_use_nerd_fonts = 1
+                vim.g.dbs = {
+                    { name = 'CS121_DB', url = 'mysql://app:app@127.0.0.1:3306/app' }
+                }
             end,
         },
-       -- { -- optional saghen/blink.cmp completion source
-       --     'saghen/blink.cmp',
-       --     opts = {
-       --         sources = {
-       --             default = { "lsp", "path", "snippets", "buffer" },
-       --             per_filetype = {
-       --                 sql = { 'snippets', 'dadbod', 'buffer' },
-       --             },
-       --             -- add vim-dadbod-completion to your completion providers
-       --             providers = {
-       --                 dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-       --             },
-       --         },
-       --     },
-       -- }
-    }
+        { -- optional saghen/blink.cmp completion source
+            'saghen/blink.cmp',
+            opts = {
+                sources = {
+                    default = { "lsp", "path", "snippets", "buffer" },
+                    per_filetype = {
+                        sql = { 'snippets', 'dadbod', 'buffer' },
+                    },
+                    -- add vim-dadbod-completion to your completion providers
+                    providers = {
+                        dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+                    },
+                },
+            },
+            -- Give Dadbod a direct line to your database so it stops bothering the LSP on startup
+        }
+    },
 }
 

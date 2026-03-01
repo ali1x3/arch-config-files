@@ -1,12 +1,4 @@
 return {
-    -- LSP
-    -- LSP servers and clients communicate which features they support through "capabilities".
-    --  By default, Neovim supports a subset of the LSP specification.
-    --  With blink.cmp, Neovim has _more_ capabilities which are communicated to the LSP servers.
-    --  Explanation from TJ: https://youtu.be/m8C0Cq9Uv9o?t=1275
-    --
-    -- This can vary by config, but in general for nvim-lspconfig:
-
     {
         'neovim/nvim-lspconfig',
         dependencies = {
@@ -15,81 +7,90 @@ return {
             'williamboman/mason-lspconfig.nvim',
         },
 
-        -- example using `opts` for defining servers
-        opts = {
-            servers = {
-                lua_ls = {},
-                sqlls = {single_file_support = true},
-                elixir = {},
-                jdtls = {},
-            }
-        },
-
-        -- config = function(_, opts)
-        --     local lspconfig = require('lspconfig')
-        --     for server, config in pairs(opts.servers) do
-        --         -- passing config.capabilities to blink.cmp merges with the capabilities in your
-        --         -- `opts[server].capabilities, if you've defined it
-        --         config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        --         lspconfig[server].setup(config)
-        --     end
-        -- end,
-
-       -- example calling setup directly for each LSP
-       config = function()
+        config = function()
             local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-            require('lspconfig').tinymist.setup({
-                single_file_support = true,
-                root_dir = require('lspconfig').util.root_pattern("typst.toml", ".git"),
-                settings = {
-                    exportPdf = "onSave", -- Optional: Create PDF on save
-                },
+            -- ==========================================
+            -- 1. NIX-MANAGED LSPs & CUSTOM SERVERS
+            -- ==========================================
+            
+            -- Setup nixd
+            -- 1. Define your list of standard servers
+            local standard_servers = {
+                'nixd',
+                'intelephense',
+                'cssls',
+                'html',
+                'ts_ls'
+            }
+
+            -- 2. Loop through and attach them natively
+            for _, server in ipairs(standard_servers) do
+                vim.lsp.config(server, {
+                    capabilities = capabilities
+                })
+                vim.lsp.enable(server)
+            end
+
+            -- Setup tinymist (Using the new 0.11 `root_markers` API)
+            vim.lsp.config('tinymist', {
                 capabilities = capabilities,
+                single_file_support = true,
+                root_markers = { "typst.toml", ".git" }, -- Native replacement for util.root_pattern
+                settings = {
+                    exportPdf = "onSave", 
+                },
             })
+            vim.lsp.enable('tinymist')
 
-            require('lspconfig').nixd.setup({ capabilities = capabilities})
+            -- Setup sqls (Relies on .sqls.yml for credentials)
+            vim.lsp.config('sqls', {
+                capabilities = capabilities,
+                root_markers = { ".sqls.yml", "devenv.nix" }, -- Native replacement for util.root_pattern
+                settings = {
+                    sqls = {
+                        connections = {
+                            {
+                                driver = 'mysql',
+                                dataSourceName = 'app:app@tcp(127.0.0.1:3306)/app',
+                            },
+                        },
+                    },
+                },
+                handlers = {
+                    ["window/showMessage"] = function(err, result, ctx, config)
+                        -- Intercept and drop the fake startup error
+                        if result and result.message and result.message:match("no database connection") then
+                            return
+                        end
+                        vim.lsp.handlers["window/showMessage"](err, result, ctx, config)
+                    end,
+                },
+            })
+            vim.lsp.enable('sqls')
 
-       --     local lspconfig = require('lspconfig')
 
-       --     lspconfig['lua_ls'].setup({ capabilities = capabilities })
-       --     lspconfig['jdtls'].setup({ capabilities = capabilities })
-       --     lspconfig['sqlls'].setup({ capabilities = capabilities })
-       --     lspconfig['elixirls'].setup({ capabilities = capabilities })
-
+            -- ==========================================
+            -- 2. MASON-MANAGED LSPs
+            -- ==========================================
             require('mason-lspconfig').setup({
-                ensure_installed = {'jdtls'},
                 handlers = {
                     function(server_name)
-                        require('lspconfig')[server_name].setup({ capabilities = capabilities })
-                    end,
-
-                    -- custom handlers
-                    biome = function()
-                        require('lspconfig').biome.setup({
-                            single_file_support = false,
-                            on_attach = function(client, bufnr)
-                                print('hello biome')
-                            end
-                        })
-                    end,
-
-                    sqlls = function()
-                        require('lspconfig').sqlls.setup({
-                            single_file_support = true,
-                            on_attach = function(client, bufnr)
-                                print('hello biome')
-                            end
-                        })
+                        -- The native 0.11 API dynamically configuring all your web dev LSPs
+                        vim.lsp.config(server_name, { capabilities = capabilities })
+                        vim.lsp.enable(server_name)
                     end,
                 },
             })
 
+
+            -- ==========================================
+            -- 3. KEYBINDINGS
+            -- ==========================================
             vim.api.nvim_create_autocmd('LspAttach', {
                 desc = 'LSP actions',
                 callback = function(event)
                     local opts = {buffer = event.buf}
-
                     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
                     vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
                     vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
@@ -102,7 +103,6 @@ return {
                     vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
                 end,
             })
-
-       end
+        end
     }
 }

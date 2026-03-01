@@ -7,6 +7,7 @@
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+alias ss='sesh connect "$(sesh list -i | fzf --ansi --height 40% --reverse --border=rounded --prompt="⚡ Session > ")"'
 
 PS1='[\u@\h \W]\$ '
 export EDITOR=nvim
