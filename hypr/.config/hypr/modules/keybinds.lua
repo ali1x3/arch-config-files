@@ -26,6 +26,7 @@ hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 -- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 
 -- Screenshots
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
