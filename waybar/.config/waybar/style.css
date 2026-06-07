@@ -217,6 +217,11 @@ label:focus {
     color: #2a5c45;
 }
 */
+#cava {
+    margin: 0 12px;
+    font-size: 0.57rem;
+    letter-spacing: 1px;
+}
 
 #wireplumber {
     background-color: #fff0f5;
