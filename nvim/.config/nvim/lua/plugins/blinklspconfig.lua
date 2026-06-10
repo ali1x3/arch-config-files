@@ -68,7 +68,50 @@ return {
                 },
             })
             vim.lsp.enable('sqls')
+            vim.lsp.enable('pylsp')
+            vim.lsp.config('pylsp', {
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            -- Turn off the default linters
+                            pycodestyle = { enabled = false },
+                            pyflakes = { enabled = false },
+                            mccabe = { enabled = false },
 
+                            -- Turn off default formatters just in case
+                            autopep8 = { enabled = false },
+                            yapf = { enabled = false },
+                        }
+                    }
+                }
+            })
+
+            -- 1. Define the server configuration
+            vim.lsp.config('harper_ls', {
+                cmd = { "harper-ls", "--stdio" },
+                filetypes = { "typst", "markdown", "gitcommit" },
+                root_markers = { ".git", "main.typ" }, -- Tells Harper where the root of your project is
+                settings = {
+                    ["harper-ls"] = {
+                        -- userDictPath = vim.fn.expand("~/.config/nvim/spell/dict.txt"), 
+                        linters = {
+                            spell_check = true,
+                            spelled_numbers = false,
+                            an_a = true,
+                            sentence_capitalization = true,
+                            unclosed_quotes = true,
+                            wrong_quotes = false,
+                            long_sentences = true,
+                            repeated_words = true,
+                            spaces_txt = false,
+                            matcher = true,
+                        }
+                    }
+                }
+            })
+
+            -- 2. Enable it so it automatically attaches to the filetypes listed above
+            vim.lsp.enable('harper_ls')
 
             -- ==========================================
             -- 2. MASON-MANAGED LSPs

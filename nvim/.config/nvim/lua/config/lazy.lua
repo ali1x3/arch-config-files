@@ -32,5 +32,6 @@ require("lazy").setup({
   install = { colorscheme = { "lushwal" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
+  
 })
 

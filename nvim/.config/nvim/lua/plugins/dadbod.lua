@@ -22,7 +22,8 @@ return {
                 -- Your DBUI configuration
                 vim.g.db_ui_use_nerd_fonts = 1
                 vim.g.dbs = {
-                    { name = 'CS121_DB', url = 'mysql://app:app@127.0.0.1:3306/app' }
+                    { name = 'CS121_DB', url = 'mysql://app:app@127.0.0.1:3306/app' },
+                    { name = 'CS121_Assignment4', url = 'mysql://app:app@127.0.0.1:3306/actors' },
                 }
             end,
         },

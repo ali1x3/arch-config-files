@@ -11,5 +11,7 @@ return {
         vim.keymap.set('n', '<leader>ds', builtin.diagnostics, { desc = 'Telescope diagnostics' })
 
         vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = 'Telescope live grep' })
+        vim.keymap.set('n', '<leader>fr', '<cmd>Telescope resume<cr>', { desc = "Telescope Resume" })
+        vim.keymap.set('n', 'grr', '<cmd>Telescope lsp_references<cr>', { desc = "Telescope References" })
     end,
 }
