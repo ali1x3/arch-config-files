@@ -1,0 +1,5 @@
+wallpaper {
+    monitor = 
+    path = /home/niguel/wallpapers/37.jpg
+    fit_mode = cover
+}
